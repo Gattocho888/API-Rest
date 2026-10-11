@@ -24,7 +24,7 @@ No necesitas instalar Gradle ni ninguna base de datos.
 ### 1. Clonar el repositorio
 
 ```bash
-git clone [URL_DE_TU_REPOSITORIO]
+git clone https://github.com/Gattocho888/API-Rest.git
 
 ```
 
