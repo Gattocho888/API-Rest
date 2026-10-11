@@ -298,3 +298,4 @@ Para este trabajo utilicé **Gemini 1.5 Pro y Claude 3.5 Sonnet para realizar la
 ---
 
 **Autor:** Nicolas Espinosa Estrada – Ingeniería de Software 2, Sesión 17
+Profesor: JONATHAN DANIEL BRICEÑO BARRERA
