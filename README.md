@@ -290,7 +290,7 @@ El proyecto incluye pruebas de integración con **Spring Boot Test + MockMvc** (
 
 ## Uso de IA
 
-Para este trabajo utilicé **Gemini Modelo 3.1 PRO y claude Sonnet 5.5 para realizar la documentacion y el README.MD**
+Para este trabajo utilicé **Gemini 1.5 Pro y Claude 3.5 Sonnet para realizar la documentacion, correccion de codifo y el documento README.MD**
 
 - Documentación oficial de Spring Boot: <https://spring.io/projects/spring-boot>
 - Proyecto base generado con Spring Initializr: <https://start.spring.io>
