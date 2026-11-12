@@ -1,7 +1,9 @@
 package co.edu.unbosque.validation;
 
 import co.edu.unbosque.controller.AvistamientoController;
-import co.edu.unbosque.model.Avistamiento;
+import co.edu.unbosque.domain.model.Avistamiento;
+import co.edu.unbosque.domain.validation.Reloj;
+import co.edu.unbosque.domain.validation.ValidadorDeAvistamiento;
 import co.edu.unbosque.repository.AvistamientoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

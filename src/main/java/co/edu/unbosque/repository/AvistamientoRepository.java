@@ -1,6 +1,6 @@
 package co.edu.unbosque.repository;
 
-import co.edu.unbosque.model.Avistamiento;
+import co.edu.unbosque.domain.model.Avistamiento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;

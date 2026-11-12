@@ -1,6 +1,6 @@
 package co.edu.unbosque.controller;
 
-import co.edu.unbosque.model.Avistamiento;
+import co.edu.unbosque.domain.model.Avistamiento;
 import co.edu.unbosque.repository.AvistamientoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

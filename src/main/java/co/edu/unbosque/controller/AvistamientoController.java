@@ -1,8 +1,8 @@
 package co.edu.unbosque.controller;
 
-import co.edu.unbosque.model.Avistamiento;
+import co.edu.unbosque.domain.model.Avistamiento;
 import co.edu.unbosque.repository.AvistamientoRepository;
-import co.edu.unbosque.validation.ValidadorDeAvistamiento;
+import co.edu.unbosque.domain.validation.ValidadorDeAvistamiento;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
