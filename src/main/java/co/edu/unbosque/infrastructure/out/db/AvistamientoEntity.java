@@ -19,24 +19,38 @@ public class AvistamientoEntity {
     private String especie;
 
     @Column(nullable = false)
+    private String fecha;
+
+    @Column(nullable = false)
     private String lugar;
 
-    // TODO: Agrega aquí la fecha u otros atributos que tengas en tu clase original
+    @Column(nullable = false)
+    private String observador;
 
     public AvistamientoEntity() {
     }
 
-    public AvistamientoEntity(Long id, String especie, String lugar) {
+    public AvistamientoEntity(Long id, String especie, String fecha, String lugar, String observador) {
         this.id = id;
         this.especie = especie;
+        this.fecha = fecha;
         this.lugar = lugar;
+        this.observador = observador;
     }
 
-    // Getters y Setters obligatorios para JPA
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getEspecie() { return especie; }
     public void setEspecie(String especie) { this.especie = especie; }
+
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
+
     public String getLugar() { return lugar; }
     public void setLugar(String lugar) { this.lugar = lugar; }
+
+    public String getObservador() { return observador; }
+    public void setObservador(String observador) { this.observador = observador; }
 }
