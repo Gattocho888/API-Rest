@@ -9,7 +9,7 @@
 
 ## 1. Qué cambió en el código (Refactorización para la Testeabilidad)
 
-En la versión original del 29 de septiembre, la API carecía de reglas de negocio aisladas y el controlador (`AvistamientoController`) se limitaba a recibir objetos HTTP y delegarlos directamente en `AvistamientoRepository`. Si hubiéramos programado las validaciones dentro de los métodos `@PostMapping` y `@PutMapping` del controlador y consultado la fecha con `LocalDate.now()`, el código habría quedado fuertemente acoplado al transporte HTTP y al reloj del sistema operativo.
+En la versión original del 29 de septiembre, la API carecía de reglas de negocio aisladas y el controlador (`AvistamientoController`) se limitaba a recibir objetos HTTP y delegarlos directamente en `AvistamientoJpaRepository`. Si hubiéramos programado las validaciones dentro de los métodos `@PostMapping` y `@PutMapping` del controlador y consultado la fecha con `LocalDate.now()`, el código habría quedado fuertemente acoplado al transporte HTTP y al reloj del sistema operativo.
 
 Para hacer la API verdaderamente testeable, aplicamos separación de responsabilidades e inversión de dependencias mediante tres cambios estructurales:
 
@@ -18,7 +18,7 @@ Para hacer la API verdaderamente testeable, aplicamos separación de responsabil
 2. **Abstracción del tiempo mediante la interfaz `Reloj`:**  
    La regla exige validar que la fecha del avistamiento *"no sea posterior a hoy"*. Invocar `LocalDate.now()` directamente dentro del validador introduce una dependencia oculta y no determinista (el valor de `"hoy"` cambia cada 24 horas). Se extrajo la interfaz `Reloj` con el método `LocalDate hoy()`, implementada en producción por `RelojSistema`. Gracias a esta costura (*seam*), en las pruebas unitarias podemos inyectar un **doble de prueba (Stub)** con una fecha congelada, garantizando que las pruebas sobre la **frontera** temporal sean 100% deterministas y repetibles en cualquier fecha futura.
 3. **Inyección por constructor en `AvistamientoController`:**  
-   El controlador ahora recibe tanto `AvistamientoRepository` como `ValidadorDeAvistamiento` por constructor. Esto permite dos cosas:
+   El controlador ahora recibe tanto `AvistamientoJpaRepository` como `ValidadorDeAvistamiento` por constructor. Esto permite dos cosas:
     * En **pruebas unitarias**, inyectar un **Mock** del repositorio para verificar que el controlador no toque la capa de persistencia cuando los datos son inválidos.
     * En **pruebas de integración**, estandarizar la respuesta de error HTTP `400 Bad Request` devolviendo un cuerpo JSON estructurado (`{"error": "..."}`) que indica explícitamente qué campo violó la regla de negocio.
 

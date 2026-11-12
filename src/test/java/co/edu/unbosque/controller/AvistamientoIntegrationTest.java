@@ -1,7 +1,7 @@
 package co.edu.unbosque.controller;
 
 import co.edu.unbosque.domain.model.Avistamiento;
-import co.edu.unbosque.repository.AvistamientoRepository;
+import co.edu.unbosque.infrastructure.out.db.AvistamientoJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class AvistamientoIntegrationTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private AvistamientoRepository repository;
+    private AvistamientoJpaRepository repository;
 
     @BeforeEach
     void configurarYLimpiarBaseDeDatos() {

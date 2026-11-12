@@ -1,0 +1,42 @@
+package co.edu.unbosque.infrastructure.out.db;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name = "avistamientos")
+public class AvistamientoEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String especie;
+
+    @Column(nullable = false)
+    private String lugar;
+
+    // TODO: Agrega aquí la fecha u otros atributos que tengas en tu clase original
+
+    public AvistamientoEntity() {
+    }
+
+    public AvistamientoEntity(Long id, String especie, String lugar) {
+        this.id = id;
+        this.especie = especie;
+        this.lugar = lugar;
+    }
+
+    // Getters y Setters obligatorios para JPA
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getEspecie() { return especie; }
+    public void setEspecie(String especie) { this.especie = especie; }
+    public String getLugar() { return lugar; }
+    public void setLugar(String lugar) { this.lugar = lugar; }
+}

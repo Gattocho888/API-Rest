@@ -4,7 +4,7 @@ import co.edu.unbosque.controller.AvistamientoController;
 import co.edu.unbosque.domain.model.Avistamiento;
 import co.edu.unbosque.domain.validation.Reloj;
 import co.edu.unbosque.domain.validation.ValidadorDeAvistamiento;
-import co.edu.unbosque.repository.AvistamientoRepository;
+import co.edu.unbosque.infrastructure.out.db.AvistamientoJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -225,7 +225,7 @@ class ValidadorDeAvistamientoTest {
     @DisplayName("crearEnControlador_cuandoAvistamientoEsInvalido_noInvocaRepositorioSave")
     void crearEnControlador_cuandoAvistamientoEsInvalido_noInvocaRepositorioSave() {
         // Arrange: Creamos un Mock del repositorio para verificar interacción sin base de datos
-        AvistamientoRepository repoMock = mock(AvistamientoRepository.class);
+        AvistamientoJpaRepository repoMock = mock(AvistamientoJpaRepository.class);
         AvistamientoController controller = new AvistamientoController(repoMock, validador);
         Avistamiento invalido = new Avistamiento("Ab", "2026-10-21", "Bogotá", "Nicolás");
 

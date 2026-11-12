@@ -1,7 +1,7 @@
 package co.edu.unbosque.controller;
 
 import co.edu.unbosque.domain.model.Avistamiento;
-import co.edu.unbosque.repository.AvistamientoRepository;
+import co.edu.unbosque.infrastructure.out.db.AvistamientoJpaRepository;
 import co.edu.unbosque.domain.validation.ValidadorDeAvistamiento;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import java.util.Optional;
 @RequestMapping("/avistamientos") // Ajusta si tu ruta base es "/api/avistamientos"
 public class AvistamientoController {
 
-    private final AvistamientoRepository repository;
+    private final AvistamientoJpaRepository repository;
     private final ValidadorDeAvistamiento validador;
 
-    public AvistamientoController(AvistamientoRepository repository, ValidadorDeAvistamiento validador) {
+    public AvistamientoController(AvistamientoJpaRepository repository, ValidadorDeAvistamiento validador) {
         this.repository = repository;
         this.validador = validador;
     }
