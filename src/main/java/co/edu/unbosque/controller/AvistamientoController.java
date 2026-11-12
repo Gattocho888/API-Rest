@@ -1,80 +1,58 @@
-package co.edu.unbosque.controller;
+package co.edu.unbosque.infrastructure.in.web; // Asegúrate de que esté en este paquete
 
+import co.edu.unbosque.application.port.in.AdministrarAvistamientoUseCase;
 import co.edu.unbosque.domain.model.Avistamiento;
-import co.edu.unbosque.infrastructure.out.db.AvistamientoJpaRepository;
-import co.edu.unbosque.domain.validation.ValidadorDeAvistamiento;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/avistamientos") // Ajusta si tu ruta base es "/api/avistamientos"
+@RequestMapping("/avistamientos") // Cambia la ruta si tenías otra
 public class AvistamientoController {
 
-    private final AvistamientoJpaRepository repository;
-    private final ValidadorDeAvistamiento validador;
+    private final AdministrarAvistamientoUseCase useCase;
 
-    public AvistamientoController(AvistamientoJpaRepository repository, ValidadorDeAvistamiento validador) {
-        this.repository = repository;
-        this.validador = validador;
+    // Inyectamos el puerto de entrada (Caso de uso), NO el repositorio
+    public AvistamientoController(AdministrarAvistamientoUseCase useCase) {
+        this.useCase = useCase;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Avistamiento>> obtenerTodos() {
-        return ResponseEntity.ok(repository.findAll());
+    @PostMapping
+    public ResponseEntity<Avistamiento> crear(@RequestBody Avistamiento avistamiento) {
+        Avistamiento guardado = useCase.guardar(avistamiento);
+        return new ResponseEntity<>(guardado, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Avistamiento> obtenerPorId(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Avistamiento> avistamiento = useCase.buscarPorId(id);
+        return avistamiento.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<?> crear(@RequestBody Avistamiento avistamiento) {
-        try {
-            validador.validar(avistamiento);
-            Avistamiento guardado = repository.save(avistamiento);
-            return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
+    @GetMapping
+    public ResponseEntity<List<Avistamiento>> obtenerTodos() {
+        return ResponseEntity.ok(useCase.buscarTodos());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Avistamiento detalles) {
-        try {
-            validador.validar(detalles);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-
-        Optional<Avistamiento> existenteOpt = repository.findById(id);
-        if (existenteOpt.isEmpty()) {
+    public ResponseEntity<Avistamiento> actualizar(@PathVariable Long id, @RequestBody Avistamiento avistamiento) {
+        Avistamiento actualizado = useCase.actualizar(id, avistamiento);
+        if (actualizado == null) {
             return ResponseEntity.notFound().build();
         }
-
-        Avistamiento existente = existenteOpt.get();
-        existente.setEspecie(detalles.getEspecie());
-        existente.setFecha(detalles.getFecha());
-        existente.setLugar(detalles.getLugar());
-        existente.setObservador(detalles.getObservador());
-
-        Avistamiento actualizado = repository.save(existente);
         return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (!repository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+        if (useCase.eliminar(id)) {
+            // Según tu reporte de pruebas, un borrado exitoso devuelve 200 OK y luego el GET da 404
+            return ResponseEntity.ok().build();
         }
-        repository.deleteById(id);
-        return ResponseEntity.noContent().build(); // O ResponseEntity.ok().build() según como lo tuvieras
+        return ResponseEntity.notFound().build();
     }
 }

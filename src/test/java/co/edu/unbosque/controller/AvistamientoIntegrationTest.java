@@ -119,10 +119,8 @@ class AvistamientoIntegrationTest {
     @DisplayName("GET_obtenerTodos_cuandoExistenRegistros_responde200ConListaCompleta")
     void GET_obtenerTodos_cuandoExistenRegistros_responde200ConListaCompleta() throws Exception {
         // Arrange
-        repository.save(crearAvistamiento("Turdus fuscater", "2026-10-10", "Usaquén", "Nicolás"));
-        repository.save(crearAvistamiento("Colibri coruscans", "2026-10-12", "La Calera", "Andrés"));
-
-        // Act & Assert
+        repository.save(new AvistamientoEntity(1L, "Loro", "Parque"));
+        repository.save(new AvistamientoEntity(1L, "Loro", "Parque"));        // Act & Assert
         mockMvc.perform(get("/avistamientos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
