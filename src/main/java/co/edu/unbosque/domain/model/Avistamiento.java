@@ -1,10 +1,9 @@
-package co.edu.unbosque.model;
+package co.edu.unbosque.domain.model;
 import jakarta.persistence.*;
-@Entity
 
 public class Avistamiento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     private Long id;
 
     private String especie;

@@ -67,7 +67,7 @@ La API quedará disponible en: `http://localhost:8080/avistamientos`
 ## 🧪 Ejecución de Pruebas y Cobertura de Código (JaCoCo)
 
 El proyecto cuenta con dos niveles de pruebas ubicados en `src/test/java/co/edu/unbosque/`:
-* **Pruebas Unitarias (`validation/ValidadorDeAvistamientoTest.java`):** 11 pruebas aisladas aplicando **Partición de Equivalencia**, **Valores Límite** (2, 3, 50 y 51 caracteres; fecha de hoy y de mañana) y **Dobles de Prueba** (`RelojFijoStub` y `Mock` de `AvistamientoRepository` con Mockito).
+* **Pruebas Unitarias (`validation/ValidadorDeAvistamientoTest.java`):** 11 pruebas aisladas aplicando **Partición de Equivalencia**, **Valores Límite** (2, 3, 50 y 51 caracteres; fecha de hoy y de mañana) y **Dobles de Prueba** (`RelojFijoStub` y `Mock` de `AvistamientoJpaRepository` con Mockito).
 * **Pruebas de Integración (`controller/AvistamientoIntegrationTest.java`):** 9 pruebas a través de HTTP (`@SpringBootTest` + `MockMvc`) que verifican los 5 endpoints, los códigos de estado (`200`, `201`, `204`, `400`, `404`), el cuerpo JSON devuelto y los efectos reales en la base de datos H2 con limpieza previa en cada test (`@BeforeEach`).
 
 ### 1. Comando para correr todas las pruebas (Unitarias + Integración)

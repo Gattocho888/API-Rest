@@ -1,4 +1,4 @@
-package co.edu.unbosque.validation;
+package co.edu.unbosque.domain.validation;
 
 import java.time.LocalDate;
 

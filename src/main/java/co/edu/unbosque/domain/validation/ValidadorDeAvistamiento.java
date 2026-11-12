@@ -1,6 +1,6 @@
-package co.edu.unbosque.validation;
+package co.edu.unbosque.domain.validation;
 
-import co.edu.unbosque.model.Avistamiento;
+import co.edu.unbosque.domain.model.Avistamiento;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
