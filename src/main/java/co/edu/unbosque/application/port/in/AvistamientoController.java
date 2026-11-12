@@ -20,9 +20,15 @@ public class AvistamientoController {
     }
 
     @PostMapping
-    public ResponseEntity<Avistamiento> crear(@RequestBody Avistamiento avistamiento) {
-        Avistamiento guardado = useCase.guardar(avistamiento);
-        return new ResponseEntity<>(guardado, HttpStatus.CREATED);
+    public ResponseEntity<?> crear(@RequestBody Avistamiento avistamiento) {
+        try {
+            Avistamiento guardado = useCase.guardar(avistamiento);
+            return new ResponseEntity<>(guardado, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            // Retorna un JSON con el mensaje de error que espera la prueba
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(java.util.Map.of("error", e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
@@ -38,12 +44,17 @@ public class AvistamientoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Avistamiento> actualizar(@PathVariable Long id, @RequestBody Avistamiento avistamiento) {
-        Avistamiento actualizado = useCase.actualizar(id, avistamiento);
-        if (actualizado == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Avistamiento avistamiento) {
+        try {
+            Avistamiento actualizado = useCase.actualizar(id, avistamiento);
+            if (actualizado == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(actualizado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(java.util.Map.of("error", e.getMessage()));
         }
-        return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -54,4 +65,5 @@ public class AvistamientoController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }

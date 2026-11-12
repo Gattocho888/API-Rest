@@ -58,8 +58,9 @@ public class AvistamientoDbAdapter implements AvistamientoRepositoryPort {
         Avistamiento dominio = new Avistamiento();
         dominio.setId(entity.getId());
         dominio.setEspecie(entity.getEspecie());
+        dominio.setFecha(entity.getFecha());       // <--- ¡Importante!
         dominio.setLugar(entity.getLugar());
-        // Setear el resto de tus atributos aquí...
+        dominio.setObservador(entity.getObservador()); // <--- ¡Importante!
         return dominio;
     }
 
@@ -67,8 +68,9 @@ public class AvistamientoDbAdapter implements AvistamientoRepositoryPort {
         AvistamientoEntity entity = new AvistamientoEntity();
         entity.setId(dominio.getId());
         entity.setEspecie(dominio.getEspecie());
+        entity.setFecha(dominio.getFecha());       // <--- ¡Importante!
         entity.setLugar(dominio.getLugar());
-        // Setear el resto de tus atributos aquí...
+        entity.setObservador(dominio.getObservador()); // <--- ¡Importante!
         return entity;
     }
 }
