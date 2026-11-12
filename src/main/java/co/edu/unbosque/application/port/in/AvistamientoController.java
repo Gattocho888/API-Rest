@@ -1,6 +1,5 @@
-package co.edu.unbosque.infrastructure.in.web; // Asegúrate de que esté en este paquete
+package co.edu.unbosque.application.port.in; // Asegúrate de que esté en este paquete
 
-import co.edu.unbosque.application.port.in.AdministrarAvistamientoUseCase;
 import co.edu.unbosque.domain.model.Avistamiento;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
